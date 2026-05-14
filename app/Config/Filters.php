@@ -11,13 +11,11 @@ class Filters extends BaseConfig
         'csrf'          => CSRF::class,
         'toolbar'       => \CodeIgniter\Filters\DebugToolbar::class,
         'honeypot'      => \CodeIgniter\Filters\Honeypot::class,
-        'auth'          => \App\Filters\Auth::class,
-        'admin'         => \App\Filters\AdminAuth::class,  // Make sure this line exists
     ];
 
     public $globals = [
         'before' => [
-            // 'csrf' => ['except' => ['ajax/*']],
+            // 'csrf'  // Comment out or remove this line to disable CSRF
         ],
         'after' => [
             'toolbar',

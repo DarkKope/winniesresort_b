@@ -2,32 +2,30 @@
 
 namespace App\Controllers;
 
+use App\Models\CottageModel;
+
 class CottagesController extends BaseController
 {
     public function index()
     {
-        $db = \Config\Database::connect();
-        $cottages = $db->query("SELECT * FROM cottages WHERE status = 'available' ORDER BY price_per_day ASC")->getResultArray();
+        $model = new CottageModel();
+        $data['cottages'] = $model->where('status', 'available')->findAll();
+        $data['title'] = 'Our Cottages';
         
-        return view('layout/header', ['title' => 'Cottages'])
-             . view('layout/sidebar')
-             . view('cottages/index', ['cottages' => $cottages])
-             . view('layout/footer');
+        return view('cottages/index', $data);
     }
     
     public function view($id)
     {
-        $db = \Config\Database::connect();
-        $cottage = $db->query("SELECT * FROM cottages WHERE cottage_id = ?", [$id])->getRowArray();
+        $model = new CottageModel();
+        $data['cottage'] = $model->find($id);
         
-        if (!$cottage) {
-            session()->setFlashdata('error', 'Cottage not found');
-            return redirect()->to('/cottages');
+        if (!$data['cottage']) {
+            return redirect()->to('/cottages')->with('error', 'Cottage not found');
         }
         
-        return view('layout/header', ['title' => $cottage['cottage_name']])
-             . view('layout/sidebar')
-             . view('cottages/view', ['cottage' => $cottage])
-             . view('layout/footer');
+        $data['title'] = $data['cottage']['name'];
+        
+        return view('cottages/view', $data);
     }
 }

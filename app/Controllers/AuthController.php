@@ -19,11 +19,19 @@ class AuthController extends BaseController
                 'username' => $user['username'],
                 'email' => $user['email'],
                 'full_name' => $user['full_name'],
+                'phone' => $user['phone'],
                 'role' => $user['role'],
                 'logged_in' => true
             ]);
             
-            return $this->response->setJSON(['success' => true, 'role' => $user['role']]);
+            // Redirect based on role
+            if ($user['role'] == 'admin') {
+                return $this->response->setJSON(['success' => true, 'redirect' => '/admin/dashboard']);
+            } elseif ($user['role'] == 'staff') {
+                return $this->response->setJSON(['success' => true, 'redirect' => '/staff/dashboard']);
+            } else {
+                return $this->response->setJSON(['success' => true, 'redirect' => '/dashboard']);
+            }
         }
         
         return $this->response->setJSON(['success' => false, 'message' => 'Invalid email or password']);
@@ -31,6 +39,8 @@ class AuthController extends BaseController
     
     public function ajaxRegister()
     {
+        // Only admin can register new users through admin panel
+        // This is for customer registration only
         $db = \Config\Database::connect();
         
         $username = $this->request->getPost('username');
@@ -39,7 +49,6 @@ class AuthController extends BaseController
         $phone = $this->request->getPost('phone');
         $password = $this->request->getPost('password');
         
-        // Check if exists
         $check = $db->query("SELECT * FROM users WHERE email = ? OR username = ?", [$email, $username])->getRowArray();
         if ($check) {
             return $this->response->setJSON(['success' => false, 'message' => 'Email or username already exists']);

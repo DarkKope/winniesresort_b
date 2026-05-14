@@ -15,16 +15,9 @@ $routes->setTranslateURIDashes(false);
 $routes->set404Override();
 $routes->setAutoRoute(false);
 
-// Main Route
+// ==================== CUSTOMER ROUTES ====================
 $routes->get('/', 'CustomerController::dashboard');
 $routes->get('/dashboard', 'CustomerController::dashboard');
-
-// Auth Routes (AJAX)
-$routes->post('/ajax/login', 'AuthController::ajaxLogin');
-$routes->post('/ajax/register', 'AuthController::ajaxRegister');
-$routes->get('/logout', 'AuthController::logout');
-
-// Customer Routes
 $routes->get('/cottage/(:num)', 'CustomerController::viewCottage/$1');
 $routes->get('/my-bookings', 'CustomerController::myBookings');
 $routes->post('/save-booking', 'CustomerController::saveBooking');
@@ -34,18 +27,20 @@ $routes->post('/update-account', 'CustomerController::updateAccount');
 $routes->get('/change-password', 'CustomerController::changePassword');
 $routes->post('/update-password', 'CustomerController::updatePassword');
 
-// Admin Routes
-$routes->group('admin', function($routes) {
-    $routes->get('/', 'AdminController::dashboard');
-    $routes->get('/dashboard', 'AdminController::dashboard');
-    $routes->get('/cottages', 'AdminController::cottages');
-    $routes->get('/add-cottage', 'AdminController::addCottage');
-    $routes->post('/save-cottage', 'AdminController::saveCottage');
-    $routes->get('/edit-cottage/(:num)', 'AdminController::editCottage/$1');
-    $routes->post('/update-cottage/(:num)', 'AdminController::updateCottage/$1');
-    $routes->get('/delete-cottage/(:num)', 'AdminController::deleteCottage/$1');
-    $routes->get('/bookings', 'AdminController::bookings');
-    $routes->get('/view-booking/(:num)', 'AdminController::viewBooking/$1');
-    $routes->post('/update-booking-status', 'AdminController::updateBookingStatus');
-    $routes->get('/users', 'AdminController::users');
-});
+// ==================== AUTH ROUTES ====================
+$routes->post('/ajax/login', 'AuthController::ajaxLogin');
+$routes->post('/ajax/register', 'AuthController::ajaxRegister');
+$routes->get('/logout', 'AuthController::logout');
+
+// ==================== ADMIN ROUTES - DIRECT ====================
+$routes->get('/admin/dashboard', 'AdminController::dashboard');
+$routes->get('/admin/cottages', 'AdminController::cottages');
+$routes->get('/admin/add-cottage', 'AdminController::addCottage');
+$routes->post('/admin/save-cottage', 'AdminController::saveCottage');
+$routes->get('/admin/edit-cottage/(:num)', 'AdminController::editCottage/$1');
+$routes->post('/admin/update-cottage/(:num)', 'AdminController::updateCottage/$1');
+$routes->get('/admin/delete-cottage/(:num)', 'AdminController::deleteCottage/$1');
+$routes->get('/admin/bookings', 'AdminController::bookings');
+$routes->get('/admin/view-booking/(:num)', 'AdminController::viewBooking/$1');
+$routes->post('/admin/update-booking-status', 'AdminController::updateBookingStatus');
+$routes->get('/admin/users', 'AdminController::users');

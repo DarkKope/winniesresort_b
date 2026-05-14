@@ -4,18 +4,12 @@ namespace App\Controllers;
 
 class AdminController extends BaseController
 {
-    private function checkAdmin()
+    public function dashboard()
     {
+        // Check if logged in as admin
         if (!session()->get('logged_in') || session()->get('role') != 'admin') {
             return redirect()->to('/');
         }
-        return null;
-    }
-    
-    public function dashboard()
-    {
-        $redirect = $this->checkAdmin();
-        if ($redirect) return $redirect;
         
         $db = \Config\Database::connect();
         
@@ -51,8 +45,9 @@ class AdminController extends BaseController
     
     public function cottages()
     {
-        $redirect = $this->checkAdmin();
-        if ($redirect) return $redirect;
+        if (!session()->get('logged_in') || session()->get('role') != 'admin') {
+            return redirect()->to('/');
+        }
         
         $db = \Config\Database::connect();
         $cottages = $db->query("SELECT * FROM cottages ORDER BY cottage_id DESC")->getResultArray();
@@ -67,16 +62,18 @@ class AdminController extends BaseController
     
     public function addCottage()
     {
-        $redirect = $this->checkAdmin();
-        if ($redirect) return $redirect;
+        if (!session()->get('logged_in') || session()->get('role') != 'admin') {
+            return redirect()->to('/');
+        }
         
         return view('admin/add_cottage', ['title' => 'Add Cottage']);
     }
     
     public function saveCottage()
     {
-        $redirect = $this->checkAdmin();
-        if ($redirect) return $redirect;
+        if (!session()->get('logged_in') || session()->get('role') != 'admin') {
+            return redirect()->to('/');
+        }
         
         $db = \Config\Database::connect();
         
@@ -94,8 +91,9 @@ class AdminController extends BaseController
     
     public function editCottage($id)
     {
-        $redirect = $this->checkAdmin();
-        if ($redirect) return $redirect;
+        if (!session()->get('logged_in') || session()->get('role') != 'admin') {
+            return redirect()->to('/');
+        }
         
         $db = \Config\Database::connect();
         $cottage = $db->query("SELECT * FROM cottages WHERE cottage_id = ?", [$id])->getRowArray();
@@ -110,8 +108,9 @@ class AdminController extends BaseController
     
     public function updateCottage($id)
     {
-        $redirect = $this->checkAdmin();
-        if ($redirect) return $redirect;
+        if (!session()->get('logged_in') || session()->get('role') != 'admin') {
+            return redirect()->to('/');
+        }
         
         $db = \Config\Database::connect();
         
@@ -128,8 +127,9 @@ class AdminController extends BaseController
     
     public function deleteCottage($id)
     {
-        $redirect = $this->checkAdmin();
-        if ($redirect) return $redirect;
+        if (!session()->get('logged_in') || session()->get('role') != 'admin') {
+            return redirect()->to('/');
+        }
         
         $db = \Config\Database::connect();
         $db->query("DELETE FROM cottages WHERE cottage_id = ?", [$id]);
@@ -140,8 +140,9 @@ class AdminController extends BaseController
     
     public function bookings()
     {
-        $redirect = $this->checkAdmin();
-        if ($redirect) return $redirect;
+        if (!session()->get('logged_in') || session()->get('role') != 'admin') {
+            return redirect()->to('/');
+        }
         
         $db = \Config\Database::connect();
         $bookings = $db->query("SELECT b.*, c.cottage_name, u.full_name, u.email, u.phone FROM bookings b 
@@ -159,8 +160,9 @@ class AdminController extends BaseController
     
     public function viewBooking($id)
     {
-        $redirect = $this->checkAdmin();
-        if ($redirect) return $redirect;
+        if (!session()->get('logged_in') || session()->get('role') != 'admin') {
+            return redirect()->to('/');
+        }
         
         $db = \Config\Database::connect();
         $booking = $db->query("SELECT b.*, c.cottage_name, c.price_per_day, u.full_name, u.email, u.phone 
@@ -179,8 +181,9 @@ class AdminController extends BaseController
     
     public function updateBookingStatus()
     {
-        $redirect = $this->checkAdmin();
-        if ($redirect) return $redirect;
+        if (!session()->get('logged_in') || session()->get('role') != 'admin') {
+            return redirect()->to('/');
+        }
         
         $db = \Config\Database::connect();
         $db->query("UPDATE bookings SET status = ? WHERE booking_id = ?",
@@ -192,8 +195,9 @@ class AdminController extends BaseController
     
     public function users()
     {
-        $redirect = $this->checkAdmin();
-        if ($redirect) return $redirect;
+        if (!session()->get('logged_in') || session()->get('role') != 'admin') {
+            return redirect()->to('/');
+        }
         
         $db = \Config\Database::connect();
         $users = $db->query("SELECT user_id, username, email, full_name, phone, role, created_at FROM users ORDER BY user_id DESC")->getResultArray();

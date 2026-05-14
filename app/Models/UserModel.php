@@ -7,44 +7,14 @@ use CodeIgniter\Model;
 class UserModel extends Model
 {
     protected $table = 'users';
-    protected $primaryKey = 'user_id';
-    protected $allowedFields = ['username', 'password', 'email', 'full_name', 'phone', 'role'];
+    protected $primaryKey = 'id';
+    protected $allowedFields = ['username', 'email', 'password', 'role'];
     protected $useTimestamps = true;
     protected $createdField = 'created_at';
-    protected $updatedField = false;
-    protected $skipValidation = true;
-
-    public function login($username, $password)
-    {
-        return $this->where('username', $username)
-                    ->where('password', $password)
-                    ->first();
-    }
-
-    public function register($data)
-    {
-        return $this->insert($data);
-    }
-
-    public function countAll()
-    {
-        return $this->countAllResults();
-    }
     
-    // Fix for bind error - use simple query
-    public function getUserByUsername($username)
-    {
-        $builder = $this->db->table('users');
-        $builder->where('username', $username);
-        $query = $builder->get();
-        return $query->getRowArray();
-    }
-    
-    public function getUserByEmail($email)
-    {
-        $builder = $this->db->table('users');
-        $builder->where('email', $email);
-        $query = $builder->get();
-        return $query->getRowArray();
-    }
+    protected $validationRules = [
+        'username' => 'required|min_length[3]',
+        'email'    => 'required|valid_email|is_unique[users.email]',
+        'password' => 'required|min_length[6]'
+    ];
 }

@@ -10,23 +10,14 @@ class AdminAuth implements FilterInterface
 {
     public function before(RequestInterface $request, $arguments = null)
     {
-        // Check if user is logged in
-        if (!session()->get('logged_in')) {
-            return redirect()->to('/');
+        if (!session()->has('user_id')) {
+            return redirect()->to('/login')->with('error', 'Please login first');
         }
         
-        // Check if user has admin role
-        $role = session()->get('role');
-        if ($role != 'admin') {
-            // Redirect customers to their dashboard
-            return redirect()->to('/dashboard');
+        if (session()->get('role') !== 'admin') {
+            return redirect()->to('/dashboard')->with('error', 'Access denied');
         }
-        
-        return $request;
     }
 
-    public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
-    {
-        // Do nothing
-    }
+    public function after(RequestInterface $request, ResponseInterface $response, $arguments = null) {}
 }
