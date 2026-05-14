@@ -34,6 +34,7 @@ $routes->get('/register', 'AuthController::register');
 $routes->post('/doRegister', 'AuthController::doRegister');
 $routes->get('/logout', 'AuthController::logout');
 
+
 // Admin Routes
 $routes->get('/admin/dashboard', 'AdminController::dashboard');
 $routes->get('/admin/cottages', 'AdminController::cottages');

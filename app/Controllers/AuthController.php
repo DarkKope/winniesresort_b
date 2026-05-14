@@ -12,7 +12,7 @@ class AuthController extends BaseController
             }
             return redirect()->to('/dashboard');
         }
-        return view('auth/login');
+        return view('auth/customer_login');
     }
     
     public function doLogin()
@@ -22,6 +22,7 @@ class AuthController extends BaseController
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
         
+        // Find user by email
         $user = $db->query("SELECT * FROM users WHERE email = ?", [$email])->getRowArray();
         
         if ($user && $password == $user['password']) {
@@ -51,7 +52,7 @@ class AuthController extends BaseController
         if (session()->get('logged_in')) {
             return redirect()->to('/dashboard');
         }
-        return view('auth/register');
+        return view('auth/customer_register');
     }
     
     public function doRegister()
@@ -64,22 +65,30 @@ class AuthController extends BaseController
         $phone = $this->request->getPost('phone');
         $password = $this->request->getPost('password');
         
-        if (empty($username) || empty($email) || empty($full_name) || empty($phone) || empty($password)) {
-            session()->setFlashdata('error', 'All fields are required');
+        // Validation
+        $errors = [];
+        
+        if (empty($username)) $errors[] = 'Username is required';
+        if (empty($email)) $errors[] = 'Email is required';
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = 'Invalid email format';
+        if (empty($full_name)) $errors[] = 'Full name is required';
+        if (empty($phone)) $errors[] = 'Phone number is required';
+        if (empty($password)) $errors[] = 'Password is required';
+        if (strlen($password) < 6) $errors[] = 'Password must be at least 6 characters';
+        
+        // Check if user exists
+        $checkEmail = $db->query("SELECT * FROM users WHERE email = ?", [$email])->getRowArray();
+        if ($checkEmail) $errors[] = 'Email already registered';
+        
+        $checkUser = $db->query("SELECT * FROM users WHERE username = ?", [$username])->getRowArray();
+        if ($checkUser) $errors[] = 'Username already taken';
+        
+        if (!empty($errors)) {
+            session()->setFlashdata('error', implode('<br>', $errors));
             return redirect()->to('/register');
         }
         
-        if (strlen($password) < 6) {
-            session()->setFlashdata('error', 'Password must be at least 6 characters');
-            return redirect()->to('/register');
-        }
-        
-        $check = $db->query("SELECT * FROM users WHERE email = ? OR username = ?", [$email, $username])->getRowArray();
-        if ($check) {
-            session()->setFlashdata('error', 'Email or username already exists');
-            return redirect()->to('/register');
-        }
-        
+        // Insert new customer
         $db->query("INSERT INTO users (username, email, full_name, phone, password, role) 
                     VALUES (?, ?, ?, ?, ?, 'customer')", 
                     [$username, $email, $full_name, $phone, $password]);

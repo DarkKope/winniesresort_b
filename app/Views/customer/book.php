@@ -3,25 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Now - <?= $cottage['cottage_name'] ?></title>
+    <title>Book Now - Winnie's Resort</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         body { background: #f0f2f5; font-family: 'Segoe UI', sans-serif; }
         .navbar { background: white; padding: 1rem 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .navbar-brand { font-size: 1.8rem; font-weight: bold; color: #1e88e5; }
-        .card { border: none; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); margin-bottom: 20px; overflow: hidden; }
+        .navbar-brand { display: flex; align-items: center; font-size: 1.8rem; font-weight: bold; color: #1e88e5; }
+        .navbar-brand img { margin-right: 12px; }
+        .card { border: none; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
         .btn-primary { background: #1e88e5; border: none; border-radius: 25px; padding: 10px 25px; }
-        .btn-success { background: #00a884; border: none; border-radius: 25px; padding: 10px 25px; }
         .price { font-size: 2rem; font-weight: bold; color: #8b5a2b; }
         .footer { background: #2c3e50; color: white; padding: 20px; text-align: center; margin-top: 30px; }
-        .form-control, .form-select { border-radius: 10px; padding: 10px; }
-        .cottage-image { width: 100%; height: 300px; object-fit: cover; }
+        .form-control { border-radius: 10px; padding: 10px; }
         .container { max-width: 1200px; margin: auto; padding: 20px; }
+        .cottage-image { width: 100%; height: 300px; object-fit: cover; }
+        .page-header { background: linear-gradient(135deg, #2c3e50, #1a3a5c); padding: 40px 0; text-align: center; color: white; }
         .payment-option { border: 2px solid #e0e0e0; border-radius: 10px; padding: 15px; margin-bottom: 10px; cursor: pointer; transition: all 0.3s; }
         .payment-option:hover { border-color: #1e88e5; background: #f0f8ff; }
-        .payment-option.selected { border-color: #00a884; background: #e8f5e9; }
+        .payment-option.selected { border-color: #28a745; background: #e8f5e9; }
         .gcash-badge { background: #00a884; color: white; padding: 3px 8px; border-radius: 5px; font-size: 12px; }
     </style>
 </head>
@@ -29,45 +30,53 @@
 
 <nav class="navbar navbar-expand-lg">
     <div class="container">
-        <a class="navbar-brand" href="/">Winnie's Resort</a>
+        <a class="navbar-brand" href="/">
+            <img src="https://cdn-icons-png.flaticon.com/512/1047/1047711.png" alt="Logo" style="height: 40px;">
+            Winnie's Resort
+        </a>
     </div>
 </nav>
 
-<div class="container mt-4">
+<div class="page-header">
+    <div class="container">
+        <h1>Complete Your Booking</h1>
+        <p>Secure your perfect getaway</p>
+    </div>
+</div>
+
+<div class="container py-4">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-lg-6 mb-4">
             <div class="card">
                 <img src="<?= !empty($cottage['image_url']) ? $cottage['image_url'] : 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=600&h=400&fit=crop' ?>" 
                      class="cottage-image" alt="<?= $cottage['cottage_name'] ?>">
-                <div class="card-body">
+                <div class="card-body p-4">
                     <h3><?= $cottage['cottage_name'] ?></h3>
                     <p><?= $cottage['description'] ?></p>
                     <hr>
-                    <h4 class="price">₱<?= number_format($cottage['price_per_day'], 2) ?>/night</h4>
+                    <h4 class="price">₱<?= number_format($cottage['price_per_day'], 2) ?><small>/night</small></h4>
                     <p><i class="fas fa-users"></i> <?= $cottage['capacity'] ?> persons</p>
-                    <div class="alert alert-info mt-3">
-                        <i class="fas fa-info-circle"></i> Check-in: 9:00 AM | Check-out: 6:00 PM
-                    </div>
                 </div>
             </div>
         </div>
         
-        <div class="col-md-6">
+        <div class="col-lg-6">
             <div class="card">
-                <div class="card-body">
-                    <h4>Complete Your Booking</h4>
+                <div class="card-body p-4">
+                    <h4>Booking Details</h4>
                     <hr>
                     <form id="bookingForm">
                         <input type="hidden" name="cottage_id" value="<?= $cottage['cottage_id'] ?>">
                         
-                        <div class="mb-3">
-                            <label>Check-in Date</label>
-                            <input type="date" name="check_in" id="check_in" class="form-control" min="<?= date('Y-m-d') ?>" required>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label>Check-out Date</label>
-                            <input type="date" name="check_out" id="check_out" class="form-control" required>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label>Check-in Date</label>
+                                <input type="date" name="check_in" id="check_in" class="form-control" min="<?= date('Y-m-d') ?>" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label>Check-out Date</label>
+                                <input type="date" name="check_out" id="check_out" class="form-control" required>
+                            </div>
                         </div>
                         
                         <div class="mb-3">
@@ -95,18 +104,13 @@
                                     </label>
                                 </div>
                                 <div id="gcashDetails" style="display: none; margin-top: 15px; padding: 15px; background: #f8f9fa; border-radius: 10px;">
-                                    <p><strong>GCash Payment Instructions:</strong></p>
-                                    <ol>
+                                    <p><strong>GCash Instructions:</strong></p>
+                                    <ol class="small">
                                         <li>Open GCash App</li>
-                                        <li>Click "Pay QR" or "Send Money"</li>
-                                        <li>Send payment to: <strong>09123456789</strong> (Winnie's Resort)</li>
-                                        <li>Enter the exact amount shown above</li>
-                                        <li>Enter your Reference Number below after payment</li>
+                                        <li>Send payment to: <strong>09123456789</strong></li>
+                                        <li>Enter Reference Number below</li>
                                     </ol>
-                                    <div class="mb-2">
-                                        <label>GCash Reference Number</label>
-                                        <input type="text" id="gcash_reference" name="gcash_reference" class="form-control" placeholder="Enter GCash Reference Number">
-                                    </div>
+                                    <input type="text" id="gcash_reference" name="gcash_reference" class="form-control" placeholder="GCash Reference Number">
                                 </div>
                             </div>
                         </div>
@@ -121,7 +125,7 @@
 
 <footer class="footer">
     <div class="container">
-        <p>&copy; 2025 Winnie's Resort</p>
+        <p>&copy; <?= date('Y') ?> Winnie's Resort. All rights reserved.</p>
     </div>
 </footer>
 
@@ -156,7 +160,7 @@ function selectPayment(method) {
         document.getElementById('cashRadio').checked = true;
         document.getElementById('gcashDetails').style.display = 'none';
         document.getElementById('gcashRadio').checked = false;
-    } else if (method === 'gcash') {
+    } else {
         document.getElementById('gcashOption').classList.add('selected');
         document.getElementById('gcashRadio').checked = true;
         document.getElementById('gcashDetails').style.display = 'block';
@@ -166,33 +170,20 @@ function selectPayment(method) {
 
 $('#bookingForm').on('submit', function(e) {
     e.preventDefault();
-    
     var paymentMethod = $('input[name="payment_method"]:checked').val();
     var gcashRef = $('#gcash_reference').val();
     
-    if (!paymentMethod) {
-        alert('Please select a payment method');
-        return;
-    }
-    
-    if (paymentMethod === 'gcash' && !gcashRef) {
-        alert('Please enter GCash Reference Number');
-        return;
-    }
+    if (!paymentMethod) { alert('Select payment method'); return; }
+    if (paymentMethod === 'gcash' && !gcashRef) { alert('Enter GCash Reference'); return; }
     
     var formData = $(this).serialize();
-    if (paymentMethod === 'gcash') {
-        formData += '&gcash_reference=' + gcashRef;
-    }
+    if (paymentMethod === 'gcash') formData += '&gcash_reference=' + gcashRef;
     
     $.ajax({
         url: '/save-booking',
         type: 'POST',
         data: formData,
-        success: function(res) {
-            alert(res.message);
-            if(res.success) window.location.href = '/my-bookings';
-        }
+        success: function(res) { alert(res.message); if(res.success) window.location.href = '/my-bookings'; }
     });
 });
 </script>
