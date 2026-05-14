@@ -1,48 +1,51 @@
 <?php
 
-use CodeIgniter\Router\RouteCollection;
+namespace Config;
 
-/**
- * @var RouteCollection $routes
- */
+$routes = Services::routes();
 
-$routes->get('/', 'Auth::index');
-$routes->get('/login', 'Auth::index');
-$routes->post('/auth', 'Auth::auth');
-$routes->get('/dashboard', 'Dashboard::index');
-$routes->get('/logout', 'Auth::logout');
+if (file_exists(SYSTEMPATH . 'Config/Routes.php')) {
+    require SYSTEMPATH . 'Config/Routes.php';
+}
 
-// User Acounts routes
-$routes->get('/users', 'Users::index');
-$routes->post('users/save', 'Users::save');
-$routes->get('users/edit/(:segment)', 'Users::edit/$1');
-$routes->post('users/update', 'Users::update');
-$routes->delete('users/delete/(:num)', 'Users::delete/$1');
-$routes->post('users/fetchRecords', 'Users::fetchRecords');
+$routes->setDefaultNamespace('App\Controllers');
+$routes->setDefaultController('CustomerController');
+$routes->setDefaultMethod('dashboard');
+$routes->setTranslateURIDashes(false);
+$routes->set404Override();
+$routes->setAutoRoute(false);
 
-// Person routes
-$routes->get('/person', 'Person::index');
-$routes->post('person/save', 'Person::save');
-$routes->get('person/edit/(:segment)', 'Person::edit/$1');
-$routes->post('person/update', 'Person::update');
-$routes->delete('person/delete/(:num)', 'Person::delete/$1');
-$routes->post('person/fetchRecords', 'Person::fetchRecords');
+// Main Route
+$routes->get('/', 'CustomerController::dashboard');
+$routes->get('/dashboard', 'CustomerController::dashboard');
 
-// Profiling routes
-$routes->get('/profiling', 'Profiling::index');
-$routes->post('profiling/save', 'Profiling::save');
-$routes->get('profiling/edit/(:segment)', 'Profiling::edit/$1');
-$routes->post('profiling/update', 'Profiling::update');
-$routes->delete('profiling/delete/(:num)', 'Profiling::delete/$1');
-$routes->post('profiling/fetchRecords', 'Profiling::fetchRecords');
+// Auth Routes (AJAX)
+$routes->post('/ajax/login', 'AuthController::ajaxLogin');
+$routes->post('/ajax/register', 'AuthController::ajaxRegister');
+$routes->get('/logout', 'AuthController::logout');
 
-// Student routes
-$routes->get('/student', 'Student::index');
-$routes->post('student/save', 'Student::save');
-$routes->get('student/edit/(:segment)', 'Student::edit/$1');
-$routes->post('student/update', 'Student::update');
-$routes->delete('student/delete/(:num)', 'Student::delete/$1');
-$routes->post('student/fetchRecords', 'Student::fetchRecords');
+// Customer Routes
+$routes->get('/cottage/(:num)', 'CustomerController::viewCottage/$1');
+$routes->get('/my-bookings', 'CustomerController::myBookings');
+$routes->post('/save-booking', 'CustomerController::saveBooking');
+$routes->get('/cancel-booking/(:num)', 'CustomerController::cancelBooking');
+$routes->get('/my-account', 'CustomerController::myAccount');
+$routes->post('/update-account', 'CustomerController::updateAccount');
+$routes->get('/change-password', 'CustomerController::changePassword');
+$routes->post('/update-password', 'CustomerController::updatePassword');
 
-// Logs routes for admin
-$routes->get('/log', 'Logs::log');
+// Admin Routes
+$routes->group('admin', function($routes) {
+    $routes->get('/', 'AdminController::dashboard');
+    $routes->get('/dashboard', 'AdminController::dashboard');
+    $routes->get('/cottages', 'AdminController::cottages');
+    $routes->get('/add-cottage', 'AdminController::addCottage');
+    $routes->post('/save-cottage', 'AdminController::saveCottage');
+    $routes->get('/edit-cottage/(:num)', 'AdminController::editCottage/$1');
+    $routes->post('/update-cottage/(:num)', 'AdminController::updateCottage/$1');
+    $routes->get('/delete-cottage/(:num)', 'AdminController::deleteCottage/$1');
+    $routes->get('/bookings', 'AdminController::bookings');
+    $routes->get('/view-booking/(:num)', 'AdminController::viewBooking/$1');
+    $routes->post('/update-booking-status', 'AdminController::updateBookingStatus');
+    $routes->get('/users', 'AdminController::users');
+});
