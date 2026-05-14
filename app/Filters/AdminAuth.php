@@ -10,12 +10,8 @@ class AdminAuth implements FilterInterface
 {
     public function before(RequestInterface $request, $arguments = null)
     {
-        if (!session()->has('user_id')) {
-            return redirect()->to('/login')->with('error', 'Please login first');
-        }
-        
-        if (session()->get('role') !== 'admin') {
-            return redirect()->to('/dashboard')->with('error', 'Access denied');
+        if (!session()->get('logged_in') || session()->get('role') != 'admin') {
+            return redirect()->to('/');
         }
     }
 

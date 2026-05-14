@@ -15,9 +15,9 @@ class BaseController extends Controller
     {
         parent::initController($request, $response, $logger);
         
-        // Start session
+        // Start session if not started
         if (session_status() === PHP_SESSION_NONE) {
-            session()->start();
+            session_start();
         }
     }
 }

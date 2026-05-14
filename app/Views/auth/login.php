@@ -54,26 +54,13 @@
                         
                         <form action="/doLogin" method="post">
                             <div class="mb-3">
-                                <div class="input-group">
-                                    <span class="input-group-text bg-white border-end-0">
-                                        <i class="fas fa-envelope text-muted"></i>
-                                    </span>
-                                    <input type="email" name="email" class="form-control border-start-0" 
-                                           placeholder="Email Address" required>
-                                </div>
+                                <input type="email" name="email" class="form-control" placeholder="Email Address" required>
                             </div>
-                            <div class="mb-4">
-                                <div class="input-group">
-                                    <span class="input-group-text bg-white border-end-0">
-                                        <i class="fas fa-lock text-muted"></i>
-                                    </span>
-                                    <input type="password" name="password" class="form-control border-start-0" 
-                                           placeholder="Password" required>
-                                </div>
+                            <div class="mb-3">
+                                <input type="password" name="password" class="form-control" placeholder="Password" required>
                             </div>
-                            <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
+                            <button type="submit" class="btn btn-primary w-100">Login</button>
                         </form>
-                        
                         <hr>
                         <p class="text-center mb-0">
                             Don't have an account? <a href="/register">Create Account</a>

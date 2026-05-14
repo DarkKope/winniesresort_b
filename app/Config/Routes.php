@@ -15,24 +15,26 @@ $routes->setTranslateURIDashes(false);
 $routes->set404Override();
 $routes->setAutoRoute(false);
 
-// ==================== CUSTOMER ROUTES ====================
+// Customer Routes
 $routes->get('/', 'CustomerController::dashboard');
 $routes->get('/dashboard', 'CustomerController::dashboard');
-$routes->get('/cottage/(:num)', 'CustomerController::viewCottage/$1');
-$routes->get('/my-bookings', 'CustomerController::myBookings');
+$routes->get('/book/(:num)', 'CustomerController::createBooking/$1');
 $routes->post('/save-booking', 'CustomerController::saveBooking');
-$routes->get('/cancel-booking/(:num)', 'CustomerController::cancelBooking');
+$routes->get('/my-bookings', 'CustomerController::myBookings');
+$routes->get('/cancel-booking/(:num)', 'CustomerController::cancelBooking/$1');
 $routes->get('/my-account', 'CustomerController::myAccount');
 $routes->post('/update-account', 'CustomerController::updateAccount');
 $routes->get('/change-password', 'CustomerController::changePassword');
 $routes->post('/update-password', 'CustomerController::updatePassword');
 
-// ==================== AUTH ROUTES ====================
-$routes->post('/ajax/login', 'AuthController::ajaxLogin');
-$routes->post('/ajax/register', 'AuthController::ajaxRegister');
+// Auth Routes
+$routes->get('/login', 'AuthController::login');
+$routes->post('/doLogin', 'AuthController::doLogin');
+$routes->get('/register', 'AuthController::register');
+$routes->post('/doRegister', 'AuthController::doRegister');
 $routes->get('/logout', 'AuthController::logout');
 
-// ==================== ADMIN ROUTES - DIRECT ====================
+// Admin Routes
 $routes->get('/admin/dashboard', 'AdminController::dashboard');
 $routes->get('/admin/cottages', 'AdminController::cottages');
 $routes->get('/admin/add-cottage', 'AdminController::addCottage');
@@ -44,3 +46,4 @@ $routes->get('/admin/bookings', 'AdminController::bookings');
 $routes->get('/admin/view-booking/(:num)', 'AdminController::viewBooking/$1');
 $routes->post('/admin/update-booking-status', 'AdminController::updateBookingStatus');
 $routes->get('/admin/users', 'AdminController::users');
+$routes->get('/admin/verify-payment/(:num)', 'AdminController::verifyPayment/$1');

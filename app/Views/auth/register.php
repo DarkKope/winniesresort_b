@@ -20,11 +20,8 @@
         .btn-primary {
             background: #1e88e5;
             border: none;
-            padding: 12px;
             border-radius: 25px;
-        }
-        .btn-primary:hover {
-            background: #0d47a1;
+            padding: 12px;
         }
         .form-control {
             border-radius: 25px;
@@ -51,52 +48,22 @@
                         <form action="/doRegister" method="post">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <div class="input-group">
-                                        <span class="input-group-text bg-white border-end-0">
-                                            <i class="fas fa-user text-muted"></i>
-                                        </span>
-                                        <input type="text" name="username" class="form-control border-start-0" 
-                                               placeholder="Username" required>
-                                    </div>
+                                    <input type="text" name="username" class="form-control" placeholder="Username" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <div class="input-group">
-                                        <span class="input-group-text bg-white border-end-0">
-                                            <i class="fas fa-envelope text-muted"></i>
-                                        </span>
-                                        <input type="email" name="email" class="form-control border-start-0" 
-                                               placeholder="Email" required>
-                                    </div>
+                                    <input type="email" name="email" class="form-control" placeholder="Email" required>
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <div class="input-group">
-                                    <span class="input-group-text bg-white border-end-0">
-                                        <i class="fas fa-user-circle text-muted"></i>
-                                    </span>
-                                    <input type="text" name="full_name" class="form-control border-start-0" 
-                                           placeholder="Full Name" required>
-                                </div>
+                                <input type="text" name="full_name" class="form-control" placeholder="Full Name" required>
                             </div>
                             <div class="mb-3">
-                                <div class="input-group">
-                                    <span class="input-group-text bg-white border-end-0">
-                                        <i class="fas fa-phone text-muted"></i>
-                                    </span>
-                                    <input type="text" name="phone" class="form-control border-start-0" 
-                                           placeholder="Phone Number" required>
-                                </div>
+                                <input type="text" name="phone" class="form-control" placeholder="Phone Number" required>
                             </div>
                             <div class="mb-3">
-                                <div class="input-group">
-                                    <span class="input-group-text bg-white border-end-0">
-                                        <i class="fas fa-lock text-muted"></i>
-                                    </span>
-                                    <input type="password" name="password" class="form-control border-start-0" 
-                                           placeholder="Password (min 6 characters)" required>
-                                </div>
+                                <input type="password" name="password" class="form-control" placeholder="Password (min 6 characters)" required>
                             </div>
-                            <button type="submit" class="btn btn-primary w-100">Create Account</button>
+                            <button type="submit" class="btn btn-primary w-100">Register</button>
                         </form>
                         <hr>
                         <p class="text-center mb-0">

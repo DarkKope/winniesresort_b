@@ -4,7 +4,18 @@ namespace App\Controllers;
 
 class AuthController extends BaseController
 {
-    public function ajaxLogin()
+    public function login()
+    {
+        if (session()->get('logged_in')) {
+            if (session()->get('role') == 'admin') {
+                return redirect()->to('/admin/dashboard');
+            }
+            return redirect()->to('/dashboard');
+        }
+        return view('auth/login');
+    }
+    
+    public function doLogin()
     {
         $db = \Config\Database::connect();
         
@@ -24,23 +35,27 @@ class AuthController extends BaseController
                 'logged_in' => true
             ]);
             
-            // Redirect based on role
             if ($user['role'] == 'admin') {
-                return $this->response->setJSON(['success' => true, 'redirect' => '/admin/dashboard']);
-            } elseif ($user['role'] == 'staff') {
-                return $this->response->setJSON(['success' => true, 'redirect' => '/staff/dashboard']);
+                return redirect()->to('/admin/dashboard');
             } else {
-                return $this->response->setJSON(['success' => true, 'redirect' => '/dashboard']);
+                return redirect()->to('/dashboard');
             }
         }
         
-        return $this->response->setJSON(['success' => false, 'message' => 'Invalid email or password']);
+        session()->setFlashdata('error', 'Invalid email or password');
+        return redirect()->to('/login');
     }
     
-    public function ajaxRegister()
+    public function register()
     {
-        // Only admin can register new users through admin panel
-        // This is for customer registration only
+        if (session()->get('logged_in')) {
+            return redirect()->to('/dashboard');
+        }
+        return view('auth/register');
+    }
+    
+    public function doRegister()
+    {
         $db = \Config\Database::connect();
         
         $username = $this->request->getPost('username');
@@ -49,16 +64,28 @@ class AuthController extends BaseController
         $phone = $this->request->getPost('phone');
         $password = $this->request->getPost('password');
         
+        if (empty($username) || empty($email) || empty($full_name) || empty($phone) || empty($password)) {
+            session()->setFlashdata('error', 'All fields are required');
+            return redirect()->to('/register');
+        }
+        
+        if (strlen($password) < 6) {
+            session()->setFlashdata('error', 'Password must be at least 6 characters');
+            return redirect()->to('/register');
+        }
+        
         $check = $db->query("SELECT * FROM users WHERE email = ? OR username = ?", [$email, $username])->getRowArray();
         if ($check) {
-            return $this->response->setJSON(['success' => false, 'message' => 'Email or username already exists']);
+            session()->setFlashdata('error', 'Email or username already exists');
+            return redirect()->to('/register');
         }
         
         $db->query("INSERT INTO users (username, email, full_name, phone, password, role) 
                     VALUES (?, ?, ?, ?, ?, 'customer')", 
                     [$username, $email, $full_name, $phone, $password]);
         
-        return $this->response->setJSON(['success' => true, 'message' => 'Registration successful! Please login.']);
+        session()->setFlashdata('success', 'Registration successful! Please login.');
+        return redirect()->to('/login');
     }
     
     public function logout()
