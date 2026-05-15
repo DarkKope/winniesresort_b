@@ -17,6 +17,7 @@
         .top-bar { background: white; padding: 15px 25px; border-radius: 15px; margin-bottom: 25px; display: flex; justify-content: space-between; }
         .card { border: none; border-radius: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .cottage-img { width: 60px; height: 50px; object-fit: cover; border-radius: 8px; }
+        .btn-sm { margin: 2px; }
         @media (max-width: 768px) { .sidebar { width: 100%; position: relative; } .main-content { margin-left: 0; } }
     </style>
 </head>
@@ -61,8 +62,11 @@
                     <?php foreach($cottages as $cottage): ?>
                     <tr>
                         <td>
-                            <img src="<?= !empty($cottage['image_url']) ? $cottage['image_url'] : 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=100&h=80&fit=crop' ?>" 
-                                 class="cottage-img" alt="<?= $cottage['cottage_name'] ?>">
+                            <?php if(!empty($cottage['image_url'])): ?>
+                                <img src="<?= $cottage['image_url'] ?>" class="cottage-img" alt="<?= $cottage['cottage_name'] ?>">
+                            <?php else: ?>
+                                <div class="cottage-img bg-light d-flex align-items-center justify-content-center"><i class="fas fa-image text-muted"></i></div>
+                            <?php endif; ?>
                         </td>
                         <td><?= $cottage['cottage_id'] ?></td>
                         <td><strong><?= $cottage['cottage_name'] ?></strong></td>
@@ -70,8 +74,8 @@
                         <td><?= $cottage['capacity'] ?></td>
                         <td><span class="badge bg-<?= $cottage['status'] == 'available' ? 'success' : 'danger' ?>"><?= ucfirst($cottage['status']) ?></span></td>
                         <td>
-                            <a href="/admin/edit-cottage/<?= $cottage['cottage_id'] ?>" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-                            <a href="/admin/delete-cottage/<?= $cottage['cottage_id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Delete this cottage?')"><i class="fas fa-trash"></i></a>
+                            <a href="/admin/edit-cottage/<?= $cottage['cottage_id'] ?>" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i> Edit</a>
+                            <a href="/admin/delete-cottage/<?= $cottage['cottage_id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Delete this cottage?')"><i class="fas fa-trash"></i> Delete</a>
                         </td>
                     </tr>
                     <?php endforeach; ?>
