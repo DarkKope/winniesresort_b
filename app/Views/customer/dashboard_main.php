@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Winnie's Resort - Paradise Found</title>
+    <title>Winnies Resort - Paradise Found</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -337,8 +337,7 @@
 <nav class="navbar navbar-expand-lg">
     <div class="container">
         <a class="navbar-brand" href="/">
-            <img src="https://cdn-icons-png.flaticon.com/512/1047/1047711.png" alt="Logo" style="height: 40px; margin-right: 10px;">
-            Winnie's Resort
+            Winnies Resort
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
@@ -363,7 +362,7 @@
 <section class="hero">
     <div class="container">
         <h1>Discover Your Perfect Paradise</h1>
-        <p>Experience luxury, comfort, and tranquility at Winnie's Resort</p>
+        <p>"Giving you the luxurious feeling for a very afordable accommodation."</p>
     </div>
 </section>
 
@@ -416,29 +415,29 @@
             <div class="col-md-3">
                 <div class="feature-item">
                     <div class="feature-icon"><i class="fas fa-umbrella-beach"></i></div>
-                    <h4>Beachfront Access</h4>
-                    <p class="text-muted">Direct access to pristine white sand beach</p>
+                    <h4>Front Pool access</h4>
+                    <p class="text-muted">Direct access to pristine pool view</p>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="feature-item">
                     <div class="feature-icon"><i class="fas fa-swimming-pool"></i></div>
-                    <h4>Infinity Pool</h4>
-                    <p class="text-muted">Stunning ocean view pool</p>
+                    <h4> Pool access</h4>
+                    <p class="text-muted">Stunning pool view</p>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="feature-item">
                     <div class="feature-icon"><i class="fas fa-utensils"></i></div>
-                    <h4>Fine Dining</h4>
-                    <p class="text-muted">World-class restaurant & bar</p>
+                    <h4>Canteen Area</h4>
+                    <p class="text-muted">Affordable prices and accessible</p>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="feature-item">
                     <div class="feature-icon"><i class="fas fa-spa"></i></div>
-                    <h4>Spa & Wellness</h4>
-                    <p class="text-muted">Relaxing spa treatments</p>
+                    <h4>Fun & Peace</h4>
+                    <p class="text-muted">Relaxing yet enjoyable stay</p>
                 </div>
             </div>
         </div>
@@ -450,8 +449,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4 mb-4">
-                <h5>Winnie's Resort</h5>
-                <p class="text-muted">Experience the perfect blend of luxury, comfort, and natural beauty at Winnie's Resort.</p>
+                <h5>Winnies Resort</h5>
+                <p class="text-muted">Experience the perfect blend of affordable, comfortable, and natural beauty at Winnies Resort.</p>
                 <div class="social-links">
                     <a href="#"><i class="fab fa-facebook-f"></i></a>
                     <a href="#"><i class="fab fa-instagram"></i></a>
@@ -471,9 +470,9 @@
             <div class="col-md-4 mb-4">
                 <h5>Contact Info</h5>
                 <ul class="list-unstyled">
-                    <li><i class="fas fa-map-marker-alt me-2"></i> Boracay Island, Philippines</li>
-                    <li><i class="fas fa-phone me-2"></i> +63 912 345 6789</li>
-                    <li><i class="fas fa-envelope me-2"></i> info@winniesresort.com</li>
+                    <li><i class="fas fa-map-marker-alt me-2"></i>Sto. Cagay, Su-ay, Himamaylan City, 6108</li>
+                    <li><i class="fas fa-phone me-2"></i> 09512261616/ 09108746744</li>
+                    <li><i class="fas fa-envelope me-2"></i> winniesresort100517@gmail.com</li>
                 </ul>
             </div>
         </div>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Account - Winnie's Resort</title>
+    <title>My Account - Winnies Resort</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -123,7 +123,7 @@
         }
         
         .list-group-item.active {
-            background: linear-gradient(135deg, #1e88e5, #0d47a1);
+            background: linear-gradient(135deg, #1e88e5, #9cb0ce);
             color: white;
         }
         
@@ -226,7 +226,7 @@
 
 <nav class="navbar navbar-expand-lg">
     <div class="container">
-        <a class="navbar-brand" href="/">Winnie's<span>Resort</span></a>
+        <a class="navbar-brand" href="/">Winnies<span>Resort</span></a>
         <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -352,9 +352,9 @@
     <div class="container">
         <p>&copy; <?= date('Y') ?> Winnie's Resort. All rights reserved.</p>
         <p>
-            <i class="fas fa-phone"></i> +63 912 345 6789 &nbsp;|&nbsp;
-            <i class="fas fa-envelope"></i> info@winniesresort.com &nbsp;|&nbsp;
-            <i class="fas fa-map-marker-alt"></i> Boracay Island, Philippines
+            <i class="fas fa-phone"></i> 09512261616/ 09108746744| &nbsp;|&nbsp;
+            <i class="fas fa-envelope"></i> winniesresort100517@gmail.com&nbsp;|&nbsp;
+            <i class="fas fa-map-marker-alt"></i> Sto. Cagay, Su-ay, Himamaylan City, 6108
         </p>
     </div>
 </footer>
